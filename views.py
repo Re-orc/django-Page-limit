@@ -1,7 +1,10 @@
 def get_context_data(self,**kwargs):
         context = super(BookmarkListView,self).get_context_data(**kwargs)
-        pagenum = int(self.request.GET['page'])
+        if self.request.GET:
+            i = int(self.request.GET.get('page'))
+        else:
+            i=1
         paginator = context['paginator']
-        page_range = paginator.page_range[pagenum:5+pagenum]
+        page_range = paginator.page_range[i-1:5+i]
         context['page_range'] = page_range
         return context
